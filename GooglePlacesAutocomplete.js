@@ -162,7 +162,7 @@ export const GooglePlacesAutocomplete = forwardRef((props, ref) => {
     );
   };
 
-  const [stateText, setStateText] = useState('');
+  const [stateText, setStateText] = useState(props.getDefaultValue() || '');
   const [dataSource, setDataSource] = useState(buildRowsFromResults([]));
   const [listViewDisplayed, setListViewDisplayed] = useState(
     props.listViewDisplayed === 'auto' ? false : props.listViewDisplayed,
@@ -577,7 +577,7 @@ export const GooglePlacesAutocomplete = forwardRef((props, ref) => {
       };
 
       if (props.preProcess) {
-        setStateText(props.preProcess(text));
+        text = props.preProcess(text)
       }
 
       request.open(
@@ -885,6 +885,7 @@ GooglePlacesAutocomplete.propTypes = {
   enablePoweredByContainer: PropTypes.bool,
   fetchDetails: PropTypes.bool,
   filterReverseGeocodingByTypes: PropTypes.array,
+  getDefaultValue: PropTypes.func,
   GooglePlacesDetailsQuery: PropTypes.object,
   GooglePlacesSearchQuery: PropTypes.object,
   GoogleReverseGeocodingQuery: PropTypes.object,
@@ -940,6 +941,7 @@ GooglePlacesAutocomplete.defaultProps = {
   enablePoweredByContainer: true,
   fetchDetails: false,
   filterReverseGeocodingByTypes: [],
+  getDefaultValue: () => '',
   GooglePlacesDetailsQuery: {},
   GooglePlacesSearchQuery: {
     rankby: 'distance',
