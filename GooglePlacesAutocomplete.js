@@ -820,7 +820,7 @@ export const GooglePlacesAutocomplete = forwardRef((props, ref) => {
     clearButtonMode,
     InputComp,
     ...userProps
-  } = props.textInputProps;
+  } = props.textInputProps || {};
   const TextInputComp = InputComp || TextInput;
 
   return (
